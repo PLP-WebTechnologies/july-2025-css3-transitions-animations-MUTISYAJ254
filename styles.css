@@ -1,0 +1,155 @@
+/* =========================================================
+   Base styles
+   ========================================================= */
+* { box-sizing: border-box; }
+body {
+  margin: 0;
+  font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+  background: #f7f7fb;
+  color: #222;
+  line-height: 1.5;
+}
+.site-header, .site-footer {
+  text-align: center;
+  padding: 1.25rem;
+  background: linear-gradient(90deg, #4f46e5, #06b6d4);
+  color: #fff;
+}
+.site-header h1 { margin: 0; font-weight: 700; }
+.site-footer p { margin: 0; }
+
+.card {
+  background: #fff;
+  max-width: 900px;
+  margin: 1.25rem auto;
+  padding: 1.25rem;
+  border-radius: 14px;
+  box-shadow: 0 6px 24px rgba(0,0,0,0.06);
+}
+h2 { margin-top: 0; }
+
+.btn {
+  appearance: none;
+  border: none;
+  border-radius: 10px;
+  padding: 0.7rem 1rem;
+  background: #4f46e5;
+  color: #fff;
+  font-weight: 600;
+  cursor: pointer;
+  transition: transform 0.2s ease, filter 0.2s ease;
+}
+.btn:hover { transform: translateY(-1px); filter: brightness(1.05); }
+.btn:active { transform: translateY(0); filter: brightness(0.95); }
+
+.btn-hover {
+  background: #0ea5e9;
+  transition: background-color 300ms ease, transform 200ms ease;
+}
+.btn-hover:hover { background-color: #0284c7; transform: translateY(-2px) scale(1.02); }
+
+.secondary { background: #22c55e; }
+
+.form-row {
+  display: flex;
+  gap: 0.5rem;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+.form-row input {
+  width: 160px;
+  padding: 0.55rem 0.7rem;
+  border-radius: 8px;
+  border: 1px solid #d1d5db;
+}
+.result { text-align: center; margin: 0.75rem 0 0; color: #111; }
+.hint { color: #555; font-size: 0.95rem; }
+
+/* =========================================================
+   Part 1: CSS-only spinner + transitions
+   - The checkbox toggles the spinner animation with pure CSS
+   ========================================================= */
+.css-only {
+  margin-top: 1rem;
+  display: grid;
+  place-items: center;
+  gap: 0.6rem;
+}
+.toggle { display: flex; align-items: center; gap: 0.5rem; cursor: pointer; }
+.toggle input { transform: scale(1.1); }
+
+.spinner {
+  width: 48px; height: 48px;
+  border: 4px solid #e5e7eb;
+  border-top-color: #4f46e5;
+  border-radius: 50%;
+  /* animation only applied when checkbox is checked (see selector below) */
+}
+#spinToggle:checked ~ .spinner {
+  animation: spin 0.9s linear infinite;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+/* =========================================================
+   Part 3: Box + keyframe animation triggered by JS
+   ========================================================= */
+.box {
+  width: 110px; height: 110px;
+  margin: 1rem auto 0;
+  background: #ef4444;
+  border-radius: 12px;
+}
+
+/* Bounce animation used when JS adds .bounce-once */
+@keyframes bounce {
+  0%   { transform: translateY(0); }
+  40%  { transform: translateY(-80px); }
+  65%  { transform: translateY(0); }
+  82%  { transform: translateY(-35px); }
+  92%  { transform: translateY(0); }
+  100% { transform: translateY(0); }
+}
+.bounce-once {
+  animation: bounce 800ms cubic-bezier(.28,.84,.42,1);
+}
+
+/* =========================================================
+   Modal + animations
+   ========================================================= */
+.modal {
+  position: fixed;
+  inset: 0;
+  display: none;            /* hidden by default */
+  align-items: center;
+  justify-content: center;
+  background: rgba(0,0,0,0.45);
+  padding: 1rem;
+}
+.modal.is-open { 
+  display: flex; 
+  animation: fadeIn 250ms ease;
+}
+
+.modal__dialog {
+  width: min(560px, 92vw);
+  background: #fff;
+  color: #111;
+  border-radius: 14px;
+  padding: 1rem 1.25rem;
+  box-shadow: 0 22px 70px rgba(0,0,0,0.2);
+  animation: slideUp 320ms ease;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; } to { opacity: 1; }
+}
+@keyframes slideUp {
+  from { transform: translateY(28px); opacity: 0.6; }
+  to   { transform: translateY(0);    opacity: 1; }
+}
+
+/* Layout helpers */
+.row { margin-top: 0.75rem; display: flex; justify-content: center; gap: 0.75rem; }
